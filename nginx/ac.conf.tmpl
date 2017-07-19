@@ -7,12 +7,19 @@ server {
   listen 80;
   server_name SP_HOSTNAME;
 
-  return 302 https://$host$request_uri;
+  location / {
+    return 302 https://$host$request_uri;
+  }
+
+  location /_lvs.txt {
+    return 200 'connect';
+  }
 }
 
 server {
   listen 443 ssl;
   server_name SP_HOSTNAME;
+  client_max_body_size 2g;
 
   ssl on;
   
