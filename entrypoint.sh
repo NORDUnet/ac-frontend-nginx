@@ -17,7 +17,7 @@ if [ ! -f "$SSL_CERT" ]; then
 fi
 
 # check dhparams
-if [ -f "/app/dhparams.pem" ]; then
+if [ ! -f "$SSL_PATH/dhparams.pem" ]; then
   echo -e "\e[91mMissing '$SSL_PATH/dhparams.pem' please gennerate with 'openssl dhparam -out dhparams.pem 4096'\e[39m"
   exit 1
 fi
