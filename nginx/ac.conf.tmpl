@@ -3,6 +3,11 @@ upstream acp {
 ACP_BACKENDS
 }
 
+map $remote_addr $auth_name {
+  default "";
+  AUTH_TRUSTED_HOSTS
+}
+
 server {
   listen 80;
   server_name SP_HOSTNAME;
@@ -41,6 +46,7 @@ server {
     proxy_pass http://acp;
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header AUTH_HEADER $auth_name;
   }
 
   location /_lvs.txt {
